@@ -20,5 +20,28 @@
 </head>
 <body>
 <p id="result"></p>
+<script>
+    let queryString = decodeURI(location.search);
+    let keyword = queryString.slice(8);
+    let recipeResult = '';
+    for (let i = 0; i < listOfRecipe.length; i++) {
+        for (let j = 0; j < listOfRecipe[i].ingredient.length; j++) {
+            if (keyword == listOfRecipe[i].ingredient[j]) {
+                recipeResult += '<div id="name"><h3>' + listOfRecipe[i].name + '</h3></div>'
+                    + '<div class="item"><div id="img"><img src=' + listOfRecipe[i].image + '></div>'
+                    + '<div><div class="content"><ol type= "1"\><li><p> Thời gian : ' + listOfRecipe[i].duration + '</p></li>'
+                    + '<li><p> Mức độ: ' + listOfRecipe[i].level + '</p></li>'
+                    + '<li><p> Số nguyên liệu : ' + listOfRecipe[i].ingredient.length + '</p></li>'
+                    + '<li><p> Nguyên liệu : <div class="Ingredients">' + listOfRecipe[i].ingredient + '</div></p></li></ol>'
+                    + '<div><p> Quy trình : </p><ol>';
+                for (let u = 0; u < listOfRecipe[i].steps.length; u++) {
+                    recipeResult += '<li><p>' + listOfRecipe[i].steps[u] + '</p></li>';
+                }
+                recipeResult += '</ol></div></div>'
+            }
+        }
+    }
+    document.getElementById('result').innerHTML = recipeResult;
+</script>
 </body>
 </html>

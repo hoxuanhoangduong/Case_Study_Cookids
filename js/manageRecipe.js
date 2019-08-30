@@ -1,3 +1,4 @@
+
 function getRecipesData() {
     let recipesData = "";
     if (localStorage.getItem("Recipes")) {
@@ -31,17 +32,6 @@ function updateDatabase(recipes) {
     localStorage.setItem("Recipes", JSON.stringify(recipes));
 }
 
-function generateId() {
-    if (localStorage.getItem("generateId")) {
-        let id = parseInt(localStorage.getItem("generateId"));
-        id++;
-        localStorage.setItem("generateId", id.toString());
-        return id;
-    } else {
-        localStorage.setItem("generateId", "1");
-        return 1;
-    }
-}
 
 let listOfRecipe = getRecipes();
 let ingredients_arr = [];
@@ -49,7 +39,7 @@ let steps_arr = [];
 
 function addIngredent() {
     let ingredient = document.getElementById('ingredient').value;
-    ingredients_arr.push(ingredient);
+    ingredients_arr.push(ingredient.toLowerCase());
     document.getElementById('ingredientslist').innerHTML = ingredients_arr;
 }
 
@@ -59,8 +49,9 @@ function addStep() {
     document.getElementById('stepslist').innerHTML = steps_arr;
 }
 
+listOfRecipe.push(new Recipe('Bắp rang bơ','https://media.cooky.vn/recipe/g4/33397/s800x500/cooky-recipe-cover-r33397.jpg',['dầu dừa','bắp hột','bơ'],['Làm nóng dầu dừa trong nồi. Bạn có thể thử bằng cách thả vài hạt bắp vào bếp, bắp nổ bùng ra là dầu đã được. Trút bắp hột vào. Lắc nồi cho hột bắp bám đều dầu ăn. Đậy nắp nồi lại.','Khi bắp đã nổ hết thì tắt bếp, mở nắp nồi, trút bắp ra 1 cái chảo khác. Cho bơ vào đun cho tan rồi cho bắp vào trở lại, xóc đều. Bắp còn nóng nên sẽ làm bơ tan chảy và thấm đều.','Nếu bạn thích bắp có mùi vi khác thì có thể chuẩn bị sẵn các bột gia vị như: bột phô mai, bột trà xanh, bột mù tạt... hoặc đường rắc ngay vào lúc cho bắp trở lại vào nồi, xóc đều, sức nóng của bắp sẽ làm các loại bột gia vị tan chảy và thấm vào bắp.'],'15M','Dễ'))
+
 function addRecipe() {
-    let recipeId = generateId();
     let name = document.getElementById('name').value;
     let img = document.getElementById('img').value;
     let ingredients = ingredients_arr;
@@ -74,7 +65,6 @@ function addRecipe() {
 
 function printOut() {
     let recipeList;
-
     for (let i = 0; i < listOfRecipe.length; i++) {
         recipeList += '<div id="name"><h3>' + listOfRecipe[i].name + '</h3></div>'
                     + '<div class="item"><div class="col-5" id="img"><img src=' + listOfRecipe[i].image + '></div>'
