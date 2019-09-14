@@ -1,85 +1,3 @@
-
-function getRecipesData() {
-    let recipesData = "";
-    if (localStorage.getItem("Recipes")) {
-        recipesData = localStorage.getItem("Recipes");
-        recipesData = JSON.parse(recipesData);
-        return recipesData;
-    } else {
-        localStorage.setItem("Recipes", "");
-        return [];
-    }
-}
-
-function getRecipes() {
-    let recipesData = getRecipesData();
-    let tempRecipe;
-    let recipes = [];
-    for (let recipe of recipesData) {
-        tempRecipe = new Recipe();
-        tempRecipe.setName(recipe.name);
-        tempRecipe.setImage(recipe.image);
-        tempRecipe.setIngredent(recipe.ingredient);
-        tempRecipe.setSteps(recipe.steps);
-        tempRecipe.setDuration(recipe.duration);
-        tempRecipe.setLevel(recipe.level);
-        recipes.push(tempRecipe);
-    }
-    return recipes
-}
-
-function updateDatabase(recipes) {
-    localStorage.setItem("Recipes", JSON.stringify(recipes));
-}
-
-
-let listOfRecipe = getRecipes();
-let ingredients_arr = [];
-let steps_arr = [];
-
-function addIngredent() {
-    let ingredient = document.getElementById('ingredient').value;
-    ingredients_arr.push(ingredient.toLowerCase());
-    document.getElementById('ingredientslist').innerHTML = ingredients_arr;
-}
-
-function addStep() {
-    let step = document.getElementById('step').value;
-    steps_arr.push(step);
-    document.getElementById('stepslist').innerHTML = steps_arr;
-}
-
-function addRecipe() {
-    let name = document.getElementById('name').value;
-    let img = document.getElementById('img').value;
-    let ingredients = ingredients_arr;
-    let steps = steps_arr;
-    let duration = document.getElementById('duration').value;
-    let level = document.getElementById('level').value;
-    listOfRecipe.push(new Recipe(name, img, ingredients, steps, duration, level));
-    updateDatabase(listOfRecipe);
-    printOut();
-}
-
-function printOut() {
-    let recipeList;
-    for (let i = 0; i < listOfRecipe.length; i++) {
-        recipeList += '<div id="name"><h3>' + listOfRecipe[i].name + '</h3></div>'
-                    + '<div class="item"><div class="col-5" id="img"><img src=' + listOfRecipe[i].image + '></div>'
-                    + '<div class="col-7"><div class="content"><ol type= "1"\><li><p> Thời gian : '+ listOfRecipe[i].duration +'</p></li>'
-                    + '<li><p> Mức độ: ' + listOfRecipe[i].level+ '</p></li>'
-                    + '<li><p> Số nguyên liệu : ' + listOfRecipe[i].ingredient.length + '</p></li>'
-                    + '<li><p> Nguyên liệu : <div class="Ingredients">' + listOfRecipe[i].ingredient + '</div></p></li></ol></div>';
-    }
-    document.getElementById('recipeList').innerHTML = recipeList;
-    return recipeList;
-}
-
-function resetDatabase() {
-    localStorage.setItem("Recipes","");
-    localStorage.setItem("generateId1","0");
-}
-
 listOfRecipe.push(new Recipe("Bắp rang bơ",
     'https://media.cooky.vn/recipe/g4/33397/s800x500/cooky-recipe-cover-r33397.jpg',
     ['dầu dừa','bắp hột','bơ'],
@@ -88,22 +6,22 @@ listOfRecipe.push(new Recipe("Bắp rang bơ",
     'Dễ'));
 listOfRecipe.push(new Recipe('Thịt bê tươi xào khổ qua',
     "https://media.cooky.vn/recipe/g5/43023/s800x500/cooky-recipe-636780691573118232.jpeg",
-    ["thịt bò", "khổ qua", "tiêu", "hạt nêm", "bột ngọt", "dầu ăn", "tỏi", "hành lá", "ngò rí"],
+    ["Thịt bò", "Khổ qua", "Tiêu", "Hạt nêm", "Bột ngọt", "Dầu ăn", "Tỏi", "Hành lá", "Ngò rí"],
     ['Chuẩn bị đầy đủ nguyên liệu: Thịt bê rửa sạch, để ráo nước rồi thái mỏng, ướp 1 muỗng cà phê tiêu xay, 1 muỗng canh hạt nêm, 1/2 muỗng canh dầu ăn, 1 củ tỏi băm ướp 10 phút. Khổ qua rửa nước muối, bỏ ruột, thái vừa ăn. Gia vị chuẩn bị đầy đủ.','Bắc chảo phi vàng thơm tỏi băm còn lại cho thịt bê đã ướp vào xào lữa lớn nhanh tay cho thịt chín tái.','Sau đó bỏ khổ qua vào đảo đều tay, nêm gia vị vừa ăn, xào khoảng 1 phút thôi để giữ độ giòn của khổ qua nhé các bạn. Cho hành lá và ngò rí vào, tắt bếp là xong.','Cho thịt bê xào khổ qua ra bát và thưởng thức. Khổ qua là thực phẩm có công dụng làm mát cơ thể, xào cùng thịt bê giàu đạm và cực kì dinh dưỡng.',''],
     '25M',
     'Dễ'));
 listOfRecipe.push(new Recipe("Thịt ba chỉ xào khoai tây",
     "https://media.cooky.vn/recipe/g5/42992/s800x500/cooky-recipe-cover-r42992.jpg",
     [
-        "thịt ba chỉ",
-        "khoai tây",
-        "ầu ăn",
-        "hdành boa rô",
-        "muối",
-        "nước tương",
-        "gừng",
-        "hoa hồi",
-        "rượu trắng"
+        "Thịt ba chỉ",
+        "Khoai tây",
+        "Dầu ăn",
+        "Hành boa rô",
+        "Muối",
+        "Nước tương",
+        "Gừng",
+        "Hoa hồi",
+        "Rượu trắng"
     ],
     [
         'Khoai tây gọt vỏ, cắt miếng nhỏ, ngâm vào nước ít phút, vớt ra để ráo nước. Thịt heo rửa sạch, dùng khăn giấy thấm khô nước, thái hình con cờ.',
@@ -116,15 +34,15 @@ listOfRecipe.push(new Recipe("Thịt ba chỉ xào khoai tây",
 listOfRecipe.push(new Recipe("Su hào xào thịt heo",
     "https://media.cooky.vn/recipe/g1/8787/s800x500/cooky-recipe-cover-r8787.jpg",
     [
-        "su hào",
-        "thịt heo",
-        "cà rốt",
-        "ớt sừng",
-        "ầu hào",
-        "hdành lá",
-        "tỏi",
-        "gừng",
-        "muối"
+        "Su hào",
+        "Thịt heo",
+        "Cà rốt",
+        "Ớt sừng",
+        "Dầu hào",
+        "Hành lá",
+        "Tỏi",
+        "Gừng",
+        "Muối"
     ],
     [
         'Su hào rửa sạch, dùng dụng cụ cắt rau củ hình lượng sóng để cắt su hào thành những que nhỏ nhé! Tỏi và gừng băm nhỏ. Hành lá thái nhỏ. Cà rốt thái sợi. Ớt thái nhỏ.',
